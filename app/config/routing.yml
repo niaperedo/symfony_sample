@@ -1,3 +1,11 @@
 app:
     resource: '@AppBundle/Controller/'
     type: annotation
+
+# This is how you create a static page
+# Use FrameworkBundle:Template:template as controller
+app_privacy:
+  pattern: /privacy 
+  defaults:
+    _controller: FrameworkBundle:Template:template
+    template: 'static/privacy.html.twig'

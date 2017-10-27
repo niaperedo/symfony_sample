@@ -18,7 +18,10 @@ class HelloController extends Controller
         // get attribute in session, use default value if the attribute doesn't exist
         $pizza_num = $session->get('pizza_num', 0);
 
-        return new Response ('<html><body><p>Hello ' . $name . '!</p><p>You can get ' . $pizza_num . ' pizza(s)</p>' . '</body</html>');
+        return $this->render(
+            'hello/index.html.twig', 
+            array('name' => $name, 'pizza_num' => $pizza_num)
+        );
     }
 
     /**
@@ -26,17 +29,30 @@ class HelloController extends Controller
      */
     public function somewhereAction()
     {   
+
+        /** Long version **/
+        // $this->get('session')->getFlashBag()->add(
+        //     'notice', 
+        //     'Oh, I see you came here for pizza.'
+        // );
+
+        /** Short version **/
+        $this->addFlash(
+            'notice',
+            'Oh, I see you came here for pizza.'
+        );
+
         /** Long version **/
         // return $this->redirect($this->generateUrl('hello'));
 
         /** Short version **/
-        return $this->redirctToRoute('hello');
+        return $this->redirectToRoute('hello');
     }
 
     /**
      * @Route("/pizza")
      */
-    public function pizzaAction(Request $request)
+    public function pizzaAction(Request $request, $delivered_pizza_num)
     {       
         $number = $request->query->get('number');
 
@@ -47,6 +63,10 @@ class HelloController extends Controller
             $session->set('pizza_num', $number);
 
             return new Response("<html><body>Get $number pizza(s)</body></html>");
+        }
+
+        if (isset($delivered_pizza_num)) {
+            return new Response("<html><body>You received $delivered_pizza_num pizza(s)</body></html>");
         }
 
         return new Response("<html><body>No Pizza for you mate :( </body></html>");
