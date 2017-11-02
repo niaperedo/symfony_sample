@@ -3,6 +3,7 @@
 
 {% block body %}
     <p>Hello {{ name }}. You can get {{ pizza_num }} pizza(s)!!</p>
+    <p><a href="{{ uri }}">Here is your lucky number!</a></p>
 
     {% for flash_message in app.session.flashBag.get('notice') %}
         <div class="flash-notice">

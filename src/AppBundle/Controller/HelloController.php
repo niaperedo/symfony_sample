@@ -10,17 +10,32 @@ use Symfony\Component\HttpFoundation\Request;
 class HelloController extends Controller
 {   
     /**
-     * @Route("/hello/{name}", name="hello")
+     * @Route("/hello/{name}", name="hello", defaults={"name":"anon"}, 
+     * requirements={"name": "\D+"})
      */
-    public function indexAction(Request $request, $name = "anon") 
+    public function indexAction(Request $request, $name) 
     {   // returns SessionInterface
         $session = $request->getSession();
         // get attribute in session, use default value if the attribute doesn't exist
         $pizza_num = $session->get('pizza_num', 0);
 
+        /** Long version **/
+        // $uri = $this->container->get('route')->generate(
+        //     'lucky_number'
+        // );
+
+        /** Short version **/
+        $uri = $this->generateUrl(
+            'lucky_number'
+        );
+
         return $this->render(
             'hello/index.html.twig', 
-            array('name' => $name, 'pizza_num' => $pizza_num)
+            array(
+                'name' => $name, 
+                'pizza_num' => $pizza_num,
+                'uri' => $uri
+            )
         );
     }
 

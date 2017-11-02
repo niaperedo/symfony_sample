@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 class LuckyController extends Controller
 {
     /**
-     * @Route("/lucky/number")
+     * @Route("/lucky/number", name="lucky_number")
      */
     public function apiNumberAction()
     {
