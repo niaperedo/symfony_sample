@@ -54,6 +54,5 @@ class LuckyController extends Controller
             'lucky/number.html.twig',
             array('numberList' => $numberList)
         );
-        
     }
 }

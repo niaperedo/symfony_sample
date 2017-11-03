@@ -5,3 +5,19 @@
     <h1>Lucky numbers: {{ numberList }} </h1>
     <a href="{{path('hello', {'name': 'Pizzato'})}}">Get Pizza</a>
 {% endblock %}
+
+{% block stylesheets %}
+    {# Use stylesheets of parent #}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        var url = '{{ url('hello', {'name' : 'Pizzato', 'thing': 2}) }}'
+        console.log(url);
+    </script>
+{% endblock %}
+
+
